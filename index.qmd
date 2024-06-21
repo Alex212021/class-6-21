@@ -1,0 +1,33 @@
+---
+title: "IQ and Education"
+execute: 
+  echo: false
+  
+---
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(gssr)
+data(gss_all)
+```
+
+
+```{r}
+
+gss_data <- gss_all %>%
+  select(wordsum, educ) %>%
+  filter(!is.na(wordsum) & !is.na(educ))
+```
+
+
+```{r}
+ggplot(gss_data, aes(x = educ, y = wordsum)) +
+  geom_jitter(alpha = 0.3, color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Relationship between Wordsum and Education Level",
+       x = "Education Level (Years)",
+       y = "Wordsum Score") +
+  theme_minimal()
+```
+
